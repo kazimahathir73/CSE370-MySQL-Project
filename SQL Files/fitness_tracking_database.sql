@@ -177,7 +177,7 @@ INSERT INTO `client` (`Client_ID`, `Email`, `Password`, `Name`, `Age`, `Gender`,
 CREATE TABLE `client_complains_to_admin` (
   `admin_id` int(11) DEFAULT NULL,
   `client_id` int(11) DEFAULT NULL,
-  `Comment` varchar(255) DEFAULT NULL
+  `Comment` varchar(3000) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
