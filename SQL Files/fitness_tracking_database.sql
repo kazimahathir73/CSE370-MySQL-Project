@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 24, 2023 at 07:03 PM
+-- Generation Time: Aug 26, 2023 at 11:12 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.0.28
 
@@ -33,6 +33,15 @@ CREATE TABLE `achievement` (
   `Task_name` varchar(255) DEFAULT NULL,
   `Point` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `achievement`
+--
+
+INSERT INTO `achievement` (`Challenge_id`, `client_id`, `Task_name`, `Point`) VALUES
+(5, 4, 'Challenge 5', 130),
+(3, 15, 'Challenge 3', 120),
+(5, 15, 'Challenge 5', 130);
 
 -- --------------------------------------------------------
 
@@ -105,6 +114,14 @@ CREATE TABLE `breakfast_items` (
   `calories` float DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `breakfast_items`
+--
+
+INSERT INTO `breakfast_items` (`diet_id`, `name`, `amount`, `Nut_info`, `calories`) VALUES
+(2, 'veg', 1000, '5000', 1000000),
+(3, 'veg', 12, '1222', 1222);
+
 -- --------------------------------------------------------
 
 --
@@ -138,7 +155,7 @@ INSERT INTO `challenges` (`Challenge_id`, `Task_name`, `Deadline`, `Point`, `Typ
 
 CREATE TABLE `client` (
   `Client_ID` int(11) NOT NULL,
-  `Email` varchar(255) DEFAULT NULL,
+  `Email` varchar(255) NOT NULL,
   `Password` varchar(255) DEFAULT NULL,
   `Name` varchar(255) DEFAULT NULL,
   `Age` int(11) DEFAULT NULL,
@@ -157,16 +174,18 @@ CREATE TABLE `client` (
 
 INSERT INTO `client` (`Client_ID`, `Email`, `Password`, `Name`, `Age`, `Gender`, `Height`, `Weight`, `Trainer`, `Medical`, `Workout_id`, `doctor_id`) VALUES
 (1, 'email1@example.com', 'password1', 'John Doe', 30, 'Male', 175.5, 70.2, 3, NULL, NULL, 1),
-(2, 'email2@example.com', 'password2', 'Jane Smith', 25, 'Female', 162.3, 58.7, NULL, NULL, NULL, NULL),
+(2, 'email2@example.com', 'password2', 'Jane Smith', 25, 'Female', 162.3, 58.7, NULL, 1, NULL, NULL),
 (3, 'email3@example.com', 'password3', 'Michael Johnson', 28, 'Male', 180, 80.5, NULL, NULL, NULL, NULL),
-(4, 'email4@example.com', 'password4', 'Emily Williams', 22, 'Female', 158.9, 52.1, NULL, NULL, NULL, NULL),
-(5, 'email5@example.com', 'password5', 'Alex Brown', 35, 'Male', 170.2, 75.8, NULL, NULL, NULL, NULL),
-(6, 'email6@example.com', 'password6', 'Olivia Davis', 29, 'Female', 167.4, 61.3, NULL, NULL, NULL, NULL),
-(7, 'email7@example.com', 'password7', 'Daniel Taylor', 27, 'Male', 185.7, 88.2, NULL, NULL, NULL, NULL),
+(4, 'email4@example.com', 'password4', 'Emily Williams', 22, 'Female', 158.9, 52.1, 1, NULL, NULL, 2),
+(5, 'email5@example.com', 'password5', 'Alex Brown', 35, 'Male', 170.2, 75.8, 2, 3, NULL, NULL),
+(6, 'email6@example.com', 'password6', 'Olivia Davis', 29, 'Female', 167.4, 61.3, NULL, 2, NULL, NULL),
+(7, 'email7@example.com', 'password7', 'Daniel Taylor', 27, 'Male', 185.7, 88.2, NULL, NULL, 5, NULL),
 (8, 'email8@example.com', 'password8', 'Sophia Clark', 24, 'Female', 160.1, 55.9, NULL, NULL, NULL, NULL),
 (9, 'email9@example.com', 'password9', 'Ethan Lee', 31, 'Male', 178.8, 72.6, NULL, NULL, NULL, NULL),
 (10, 'email10@example.com', 'password10', 'Ava Garcia', 26, 'Female', 163.5, 59.4, NULL, NULL, NULL, NULL),
-(11, 'client000@example.com', 'password000', 'Mac mac', 20, 'shemale', 10, 10, NULL, NULL, NULL, NULL);
+(11, 'client000@example.com', 'password000', 'Mac mac', 20, 'shemale', 10, 10, NULL, NULL, NULL, NULL),
+(12, 'istiak@example.com', '12345', 'Istiak Ahmed', 20, 'Male', 170, 72, NULL, NULL, NULL, NULL),
+(15, 'm@m', 'm', 'm', 89, 'Male', 5, 7, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -177,8 +196,18 @@ INSERT INTO `client` (`Client_ID`, `Email`, `Password`, `Name`, `Age`, `Gender`,
 CREATE TABLE `client_complains_to_admin` (
   `admin_id` int(11) DEFAULT NULL,
   `client_id` int(11) DEFAULT NULL,
-  `Comment` varchar(3000) DEFAULT NULL
+  `comment` varchar(3000) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `client_complains_to_admin`
+--
+
+INSERT INTO `client_complains_to_admin` (`admin_id`, `client_id`, `comment`) VALUES
+(2, 1, 'please dr change'),
+(1, 5, 'change my trainer\r\n'),
+(2, 5, 'I am dead'),
+(1, 15, 'hghnfggfg');
 
 -- --------------------------------------------------------
 
@@ -197,7 +226,8 @@ CREATE TABLE `client_rates_trainer` (
 --
 
 INSERT INTO `client_rates_trainer` (`client_id`, `trainer_id`, `rating`) VALUES
-(1, 1, 3);
+(1, 1, 3),
+(5, 2, 3);
 
 -- --------------------------------------------------------
 
@@ -210,6 +240,14 @@ CREATE TABLE `diet` (
   `client_id` int(11) DEFAULT NULL,
   `trainer_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `diet`
+--
+
+INSERT INTO `diet` (`diet_id`, `client_id`, `trainer_id`) VALUES
+(2, 5, 2),
+(3, 5, 6);
 
 -- --------------------------------------------------------
 
@@ -224,6 +262,14 @@ CREATE TABLE `dinner_items` (
   `Nut_info` varchar(255) DEFAULT NULL,
   `calories` float DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `dinner_items`
+--
+
+INSERT INTO `dinner_items` (`diet_id`, `name`, `amount`, `Nut_info`, `calories`) VALUES
+(2, 'chicken', 30, '700', 345),
+(3, 'chicken', 1212, '10000', 345);
 
 -- --------------------------------------------------------
 
@@ -258,6 +304,13 @@ CREATE TABLE `doctor_creates_med_history` (
   `Medical_hist_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `doctor_creates_med_history`
+--
+
+INSERT INTO `doctor_creates_med_history` (`doctor_id`, `Medical_hist_id`) VALUES
+(1, 1);
+
 -- --------------------------------------------------------
 
 --
@@ -271,6 +324,13 @@ CREATE TABLE `exercise` (
   `Reps` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `exercise`
+--
+
+INSERT INTO `exercise` (`workout_id`, `Exersice_name`, `Sets`, `Reps`) VALUES
+(5, 'Push up', 3, 6);
+
 -- --------------------------------------------------------
 
 --
@@ -281,6 +341,14 @@ CREATE TABLE `friendship` (
   `client1` int(11) DEFAULT NULL,
   `client2` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `friendship`
+--
+
+INSERT INTO `friendship` (`client1`, `client2`) VALUES
+(5, 4),
+(1, 15);
 
 -- --------------------------------------------------------
 
@@ -293,6 +361,14 @@ CREATE TABLE `friend_request` (
   `receiver_id` int(11) DEFAULT NULL,
   `status` enum('pending','accepted','rejected') DEFAULT 'pending'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `friend_request`
+--
+
+INSERT INTO `friend_request` (`sender_id`, `receiver_id`, `status`) VALUES
+(4, 5, 'accepted'),
+(15, 1, 'accepted');
 
 -- --------------------------------------------------------
 
@@ -315,7 +391,11 @@ CREATE TABLE `goal` (
 --
 
 INSERT INTO `goal` (`Goal_id`, `Target`, `Goal_type`, `Start`, `End`, `Achieved`, `Client_id`) VALUES
-(1, 'Upper body', 'Gain muscle', '2023-08-23', '2023-09-01', 0, 1);
+(1, 'Upper body', 'Gain muscle', '2023-08-23', '2023-09-01', 0, 1),
+(2, 'Upper body', 'Gain muscle', '2023-08-30', '2023-09-14', 0, 1),
+(4, 'Lower body', 'Type1', '2023-10-12', '2023-10-23', 0, 4),
+(5, 'Legs', 'Hudai', '0000-00-00', '0000-00-00', 0, 1),
+(6, 'asdsd', 'asdasd', '0000-00-00', '0000-00-00', 0, 1);
 
 -- --------------------------------------------------------
 
@@ -328,6 +408,15 @@ CREATE TABLE `leaderboard` (
   `client_id` int(11) DEFAULT NULL,
   `Position` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `leaderboard`
+--
+
+INSERT INTO `leaderboard` (`Challenge_id`, `client_id`, `Position`) VALUES
+(5, 4, 1),
+(3, 15, 1),
+(5, 15, 2);
 
 -- --------------------------------------------------------
 
@@ -342,6 +431,14 @@ CREATE TABLE `lunch_items` (
   `Nut_info` varchar(255) DEFAULT NULL,
   `calories` float DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `lunch_items`
+--
+
+INSERT INTO `lunch_items` (`diet_id`, `name`, `amount`, `Nut_info`, `calories`) VALUES
+(2, 'meat', 20, '400', 500),
+(3, 'meat', 100, '2122', 1212);
 
 -- --------------------------------------------------------
 
@@ -364,8 +461,17 @@ CREATE TABLE `matric` (
 
 CREATE TABLE `medical_history` (
   `medical_hist_id` int(11) NOT NULL,
-  `Bp` float DEFAULT NULL
+  `Medical_info` varchar(3000) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `medical_history`
+--
+
+INSERT INTO `medical_history` (`medical_hist_id`, `Medical_info`) VALUES
+(1, '130'),
+(2, 'skadhjasjdjkasbndbnaskjd'),
+(3, 'ssss');
 
 -- --------------------------------------------------------
 
@@ -428,7 +534,9 @@ INSERT INTO `trainer` (`Trainer_id`, `Email`, `Password`, `Name`, `Specializatio
 (1, 'trainer1111@example.com', 'password1111', 'Messi', 'swimming', 5),
 (2, 'trainer2@example.com', 'password2', 'Ronaldo', 'Football', 10),
 (3, 'trainer3@example.com', 'password3', 'Harry', 'Running', 2),
-(4, 'trainer4@example.com', 'password4', 'Miss Sara', 'Legs', 4);
+(4, 'trainer4@example.com', 'password4', 'Miss Sara', 'Legs', 4),
+(5, 'trainer5@example.com', 'password5', 'Ronaldo', 'Cricket', 8),
+(6, 'trainer1@example.com', '123445', 'ksdj', 'sadasd', 1);
 
 -- --------------------------------------------------------
 
@@ -443,6 +551,13 @@ CREATE TABLE `trainer_submit_issue_to_doctor` (
   `Issue` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `trainer_submit_issue_to_doctor`
+--
+
+INSERT INTO `trainer_submit_issue_to_doctor` (`Trainer_id`, `Doctor_id`, `Client_id`, `Issue`) VALUES
+(1, 1, 1, 'fdgfvfvdgfv');
+
 -- --------------------------------------------------------
 
 --
@@ -453,6 +568,13 @@ CREATE TABLE `workout_routine` (
   `workout_id` int(11) NOT NULL,
   `trainer_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `workout_routine`
+--
+
+INSERT INTO `workout_routine` (`workout_id`, `trainer_id`) VALUES
+(5, 2);
 
 --
 -- Indexes for dumped tables
@@ -476,7 +598,8 @@ ALTER TABLE `activity`
 -- Indexes for table `admin`
 --
 ALTER TABLE `admin`
-  ADD PRIMARY KEY (`Admin_ID`);
+  ADD PRIMARY KEY (`Admin_ID`),
+  ADD UNIQUE KEY `Email` (`Email`);
 
 --
 -- Indexes for table `admin_can_change_doctor`
@@ -509,6 +632,7 @@ ALTER TABLE `challenges`
 --
 ALTER TABLE `client`
   ADD PRIMARY KEY (`Client_ID`),
+  ADD UNIQUE KEY `Email` (`Email`),
   ADD KEY `Trainer` (`Trainer`),
   ADD KEY `Medical` (`Medical`),
   ADD KEY `Workout_id` (`Workout_id`),
@@ -546,7 +670,8 @@ ALTER TABLE `dinner_items`
 -- Indexes for table `doctor`
 --
 ALTER TABLE `doctor`
-  ADD PRIMARY KEY (`doctor_id`);
+  ADD PRIMARY KEY (`doctor_id`),
+  ADD UNIQUE KEY `Email` (`Email`);
 
 --
 -- Indexes for table `doctor_creates_med_history`
@@ -624,7 +749,8 @@ ALTER TABLE `tracking_tech`
 -- Indexes for table `trainer`
 --
 ALTER TABLE `trainer`
-  ADD PRIMARY KEY (`Trainer_id`);
+  ADD PRIMARY KEY (`Trainer_id`),
+  ADD UNIQUE KEY `Email` (`Email`);
 
 --
 -- Indexes for table `trainer_submit_issue_to_doctor`
@@ -666,13 +792,13 @@ ALTER TABLE `challenges`
 -- AUTO_INCREMENT for table `client`
 --
 ALTER TABLE `client`
-  MODIFY `Client_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `Client_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `diet`
 --
 ALTER TABLE `diet`
-  MODIFY `diet_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `diet_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `doctor`
@@ -684,13 +810,13 @@ ALTER TABLE `doctor`
 -- AUTO_INCREMENT for table `goal`
 --
 ALTER TABLE `goal`
-  MODIFY `Goal_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `Goal_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `medical_history`
 --
 ALTER TABLE `medical_history`
-  MODIFY `medical_hist_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `medical_hist_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `tracking_tech`
@@ -702,13 +828,13 @@ ALTER TABLE `tracking_tech`
 -- AUTO_INCREMENT for table `trainer`
 --
 ALTER TABLE `trainer`
-  MODIFY `Trainer_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `Trainer_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `workout_routine`
 --
 ALTER TABLE `workout_routine`
-  MODIFY `workout_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `workout_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- Constraints for dumped tables
