@@ -17,11 +17,6 @@ Welcome to the Fitness Tracking Website project! This web application is designe
 
 Make sure you have Node.js and npm installed before running the above commands.
 
-## Contributing
-
-We welcome contributions from the community! If you'd like to contribute to this project, please follow our [Contributing Guidelines](CONTRIBUTING.md).
-
-## License
 
 This project is licensed under the [MIT License](LICENSE).
 
