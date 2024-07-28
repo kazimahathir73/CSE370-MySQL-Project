@@ -18,9 +18,5 @@ Welcome to the Fitness Tracking Website project! This web application is designe
 Make sure you have Node.js and npm installed before running the above commands.
 
 
-This project is licensed under the [MIT License](LICENSE).
-
----
-
 Ready to take charge of your fitness journey? Start using our Fitness Tracking Website today to stay on top of your health goals!
 
